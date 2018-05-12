@@ -36,11 +36,12 @@ def load_data(dir):
 
 def train_model(X_train, y_train, output_path):
     from keras.models import Sequential
-    from keras.layers import Flatten, Dense, Convolution2D, MaxPooling2D
+    from keras.layers import Flatten, Dense, Lambda, Convolution2D, Cropping2D, MaxPooling2D
 
     model = Sequential()
-
-    model.add(Convolution2D(6, 5, 5, activation='relu', input_shape=(160, 320, 3)))
+    model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160, 320, 3)))
+    model.add(Cropping2D(cropping=((50, 20), (0, 0))))
+    model.add(Convolution2D(6, 5, 5, activation='relu'))
     model.add(MaxPooling2D())
     model.add(Convolution2D(6, 5, 5, activation='relu'))
     model.add(MaxPooling2D())
