@@ -2,6 +2,7 @@ def load_data(dir):
     import csv
     import os
     import cv2
+    import numpy as np
 
     csv_path = os.path.join(dir, 'driving_log.csv')
     img_path = os.path.join(dir, 'IMG')
@@ -22,7 +23,7 @@ def load_data(dir):
 
     y_train = [line[1] for line in images_steering]
 
-    return X_train, y_train
+    return np.array(X_train), np.array(y_train)
 
 def train_model(X_train, y_train, output_path):
     from keras.models import Sequential
@@ -44,4 +45,6 @@ if __name__ == '__main__':
     args = argumets_parser.parse_args()
 
     X_train, y_train = load_data(args.dir)
+
+    from pprint import pprint
     train_model(X_train, y_train, 'model.h5')
