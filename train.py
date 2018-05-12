@@ -14,6 +14,7 @@ def load_data(dir):
                 line[3]
             ]
             for line in csv.reader(csvfile)
+            if line[0] != 'center'
         ]
 
     X_train = [
