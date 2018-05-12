@@ -11,7 +11,7 @@ def load_data(dir):
         images_steering = [
             [
                 line[0].split('/')[-1],
-                line[3]
+                float(line[3])
             ]
             for line in csv.reader(csvfile)
             if line[0] != 'center'
@@ -21,14 +21,22 @@ def load_data(dir):
         cv2.imread(os.path.join(img_path, line[0]))
         for line in images_steering
     ]
+    X_train = np.array(X_train)
 
     y_train = [line[1] for line in images_steering]
+    y_train = np.array(y_train)
 
-    return np.array(X_train), np.array(y_train)
+    X_train_flipped = [cv2.flip(img, 1) for img in X_train]
+    y_train_reversed = y_train * -1
+
+    X_train = np.concatenate((X_train, X_train_flipped), axis=0)
+    y_train = np.concatenate((y_train, y_train_reversed), axis=0)
+
+    return X_train, y_train
 
 def train_model(X_train, y_train, output_path):
     from keras.models import Sequential
-    from keras.layers import Flatten, Dense, Lambda, Convolution2D, MaxPooling2D
+    from keras.layers import Flatten, Dense, Convolution2D, MaxPooling2D
 
     model = Sequential()
 
@@ -54,5 +62,4 @@ if __name__ == '__main__':
 
     X_train, y_train = load_data(args.dir)
 
-    from pprint import pprint
     train_model(X_train, y_train, 'model.h5')
