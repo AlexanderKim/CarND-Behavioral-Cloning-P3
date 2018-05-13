@@ -30,7 +30,7 @@ def load_data(dir):
 
     # X_train = np.concatenate((X_train, X_train_flipped), axis=0)
     for row in X_train_flipped:
-        X_train.append(row)
+        np.append(X_train, row)
 
     y_train = np.concatenate((y_train, y_train_reversed), axis=0)
 
