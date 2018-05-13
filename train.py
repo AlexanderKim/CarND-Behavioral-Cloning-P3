@@ -3,19 +3,20 @@ def load_data(dir):
     import os
     import cv2
     import numpy as np
+    from pprint import pprint
 
     csv_path = os.path.join(dir, 'driving_log.csv')
     img_path = os.path.join(dir, 'IMG')
 
     with open(csv_path) as csvfile:
         images_steering = [
-            [
-                line[0].split('/')[-1],
-                float(line[3])
-            ]
+            [ line[i].split('/')[-1], float(line[3]) ]
             for line in csv.reader(csvfile)
+            for i in range(3)
             if line[0] != 'center'
         ]
+
+    pprint(images_steering)
 
     X_train = [
         cv2.imread(os.path.join(img_path, line[0]))
@@ -40,7 +41,7 @@ def train_model(X_train, y_train, output_path):
 
     model = Sequential()
     model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160, 320, 3)))
-    model.add(Cropping2D(cropping=((50, 20), (0, 0))))
+    model.add(Cropping2D(cropping=((70, 25), (0, 0))))
     model.add(Convolution2D(6, 5, 5, activation='relu'))
     model.add(MaxPooling2D())
     model.add(Convolution2D(6, 5, 5, activation='relu'))
