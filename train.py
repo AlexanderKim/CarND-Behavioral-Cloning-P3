@@ -16,8 +16,6 @@ def load_data(dir):
             if line[0] != 'center'
         ]
 
-    pprint(images_steering)
-
     X_train = [
         cv2.imread(os.path.join(img_path, line[0]))
         for line in images_steering
@@ -30,7 +28,10 @@ def load_data(dir):
     X_train_flipped = [cv2.flip(img, 1) for img in X_train]
     y_train_reversed = y_train * -1
 
-    X_train = np.concatenate((X_train, X_train_flipped), axis=0)
+    # X_train = np.concatenate((X_train, X_train_flipped), axis=0)
+    for row in X_train_flipped:
+        X_train.append(row)
+
     y_train = np.concatenate((y_train, y_train_reversed), axis=0)
 
     return X_train, y_train
