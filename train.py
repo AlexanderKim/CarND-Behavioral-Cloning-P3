@@ -26,12 +26,12 @@ def load_data(dir):
     y_train = np.array(y_train)
 
     X_train_flipped = [cv2.flip(img, 1) for img in X_train]
+    X_train_flipped = np.array(X_train_flipped)
+
     y_train_reversed = y_train * -1
+    y_train_reversed = np.array(y_train_reversed)
 
-    # X_train = np.concatenate((X_train, X_train_flipped), axis=0)
-    for row in X_train_flipped:
-        np.append(X_train, row)
-
+    X_train = np.concatenate((X_train, X_train_flipped), axis=0)
     y_train = np.concatenate((y_train, y_train_reversed), axis=0)
 
     return X_train, y_train
