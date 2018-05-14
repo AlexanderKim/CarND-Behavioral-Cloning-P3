@@ -20,19 +20,18 @@ def load_data(dir):
         cv2.imread(os.path.join(img_path, line[0]))
         for line in images_steering
     ]
-    X_train = np.array(X_train)
 
     y_train = [line[1] for line in images_steering]
-    y_train = np.array(y_train)
 
     X_train_flipped = [cv2.flip(img, 1) for img in X_train]
-    X_train_flipped = np.array(X_train_flipped)
-
     y_train_reversed = y_train * -1
-    y_train_reversed = np.array(y_train_reversed)
 
-    X_train = np.concatenate((X_train, X_train_flipped), axis=0)
-    y_train = np.concatenate((y_train, y_train_reversed), axis=0)
+    for X, y in zip(X_train_flipped, y_train_reversed):
+        X_train.append(X)
+        y_train.append(y)
+
+    X_train = np.array(X_train)
+    y_train = np.array(y_train)
 
     return X_train, y_train
 
