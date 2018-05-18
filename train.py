@@ -109,11 +109,20 @@ if __name__ == '__main__':
     train_generator = generator(train_samples, args.dir, batch_size=32)
     validation_generator = generator(validation_samples, args.dir, batch_size=32)
 
-    model.fit_generator(
+    history_object = model.fit_generator(
         train_generator,
         samples_per_epoch=len(train_samples),
         validation_data = validation_generator,
         nb_val_samples = len(validation_samples), nb_epoch = 3
     )
+
+    import matplotlib as plt
+    plt.plot(history_object.history['loss'])
+    plt.plot(history_object.history['val_loss'])
+    plt.title('model mean squared error loss')
+    plt.ylabel('mean squared error loss')
+    plt.xlabel('epoch')
+    plt.legend(['training set', 'validation set'], loc='upper right')
+    plt.show()
 
     model.save('model.h5')
