@@ -12,7 +12,7 @@ def load_data(dir):
 
     with open(csv_path) as csvfile:
         images_steering = [
-            [ line[i].split('/')[-1], float(line[3]) ]
+            [ line[i].split('/')[-1], float(line[3]) *1.5 ]
             for line in csv.reader(csvfile)
             for i in range(3)
             if line[0] != 'center'
