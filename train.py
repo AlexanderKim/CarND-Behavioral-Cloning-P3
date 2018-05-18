@@ -116,13 +116,4 @@ if __name__ == '__main__':
         nb_val_samples = len(validation_samples), nb_epoch = 3
     )
 
-    import matplotlib.pyplot as plt
-    plt.plot(history_object.history['loss'])
-    plt.plot(history_object.history['val_loss'])
-    plt.title('model mean squared error loss')
-    plt.ylabel('mean squared error loss')
-    plt.xlabel('epoch')
-    plt.legend(['training set', 'validation set'], loc='upper right')
-    plt.savefig('loss.png')
-
     model.save('model.h5')
