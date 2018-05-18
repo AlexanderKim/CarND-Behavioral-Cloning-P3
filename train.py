@@ -116,7 +116,7 @@ if __name__ == '__main__':
         nb_val_samples = len(validation_samples), nb_epoch = 3
     )
 
-    import matplotlib as plt
+    import matplotlib.pyplot as plt
     plt.plot(history_object.history['loss'])
     plt.plot(history_object.history['val_loss'])
     plt.title('model mean squared error loss')
