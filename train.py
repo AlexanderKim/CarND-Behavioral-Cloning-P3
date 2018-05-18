@@ -123,6 +123,6 @@ if __name__ == '__main__':
     plt.ylabel('mean squared error loss')
     plt.xlabel('epoch')
     plt.legend(['training set', 'validation set'], loc='upper right')
-    plt.show()
+    plt.savefig('loss.png')
 
     model.save('model.h5')
