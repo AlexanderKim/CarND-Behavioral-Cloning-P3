@@ -55,9 +55,6 @@ def generator(samples, dir, batch_size=32):
                 image = cv2.imread(name)
                 angle = float(batch_sample[1])
 
-                if abs(angle) > 0 and abs(angle) < 0.2:
-                    continue
-
                 images.append(image)
                 angles.append(angle)
 
