@@ -20,25 +20,6 @@ def load_data(dir):
 
     return images_steering
 
-    # X_train = [
-    #     cv2.imread(os.path.join(img_path, line[0]))
-    #     for line in images_steering
-    # ]
-    #
-    # y_train = [line[1] for line in images_steering]
-    #
-    # X_train_flipped = [cv2.flip(img, 1) for img in X_train]
-    # y_train_reversed = y_train * -1
-    #
-    # for X, y in zip(X_train_flipped, y_train_reversed):
-    #     X_train.append(X)
-    #     y_train.append(y)
-    #
-    # X_train = np.array(X_train)
-    # y_train = np.array(y_train)
-    #
-    # return X_train, y_train
-
 def generator(samples, dir, batch_size=32):
     img_path = os.path.join(dir, 'IMG')
 
