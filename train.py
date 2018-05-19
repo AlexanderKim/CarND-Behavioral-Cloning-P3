@@ -81,9 +81,6 @@ if __name__ == '__main__':
 
     model = compile_model()
 
-    # X_train, y_train = load_data(args.dir)
-    # model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=3)
-
     from sklearn.model_selection import train_test_split
     train_samples, validation_samples = train_test_split(load_data(args.dir), test_size=0.2)
 
